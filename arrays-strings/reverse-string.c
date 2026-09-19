@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
-    char str[] = "hello";
+void reverse(char str[]) {
     int start = 0;
     int end = strlen(str) - 1;
 
@@ -10,12 +9,21 @@ int main() {
         char temp = str[start];
         str[start] = str[end];
         str[end] = temp;
-
         start++;
         end--;
     }
+}
 
-    printf("Reversed string: %s\n", str);
+int main() {
+    // Test Case 1: Typical
+    char str1[] = "hello";
+    reverse(str1);
+    printf("Test Case 1: %s\n", str1);
+
+    // Test Case 2: Edge case - single character
+    char str2[] = "a";
+    reverse(str2);
+    printf("Test Case 2: %s\n", str2);
 
     return 0;
 }

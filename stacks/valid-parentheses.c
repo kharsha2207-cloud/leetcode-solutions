@@ -1,44 +1,41 @@
 #include <stdio.h>
-#include <string.h>
 
 #define MAX 100
 
-int main() {
-    char str[] = "{[()]}";
+int isValid(char str[]) {
     char stack[MAX];
     int top = -1;
 
     for (int i = 0; str[i] != '\0'; i++) {
 
-        // Push opening brackets
         if (str[i] == '(' || str[i] == '[' || str[i] == '{') {
             stack[++top] = str[i];
         }
-
-        // Check closing brackets
         else if (str[i] == ')' || str[i] == ']' || str[i] == '}') {
 
-            if (top == -1) {
-                printf("Invalid Parentheses\n");
+            if (top == -1)
                 return 0;
-            }
 
             char open = stack[top--];
 
             if ((str[i] == ')' && open != '(') ||
                 (str[i] == ']' && open != '[') ||
-                (str[i] == '}' && open != '{')) {
-
-                printf("Invalid Parentheses\n");
+                (str[i] == '}' && open != '{'))
                 return 0;
-            }
         }
     }
 
-    if (top == -1)
-        printf("Valid Parentheses\n");
-    else
-        printf("Invalid Parentheses\n");
+    return top == -1;
+}
+
+int main() {
+    // Test Case 1: Typical
+    printf("Test Case 1: %s\n",
+           isValid("{[()]}") ? "Valid" : "Invalid");
+
+    // Test Case 2: Edge case - mismatched brackets
+    printf("Test Case 2: %s\n",
+           isValid("{[(])}") ? "Valid" : "Invalid");
 
     return 0;
 }
